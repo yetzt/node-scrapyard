@@ -1,0 +1,27 @@
+{
+	"name": "scrapyard",
+	"version": "0.0.1",
+	"description": "Scraping websites made easy.",
+	"author": "Sebastian Vollnhals <sebastian@vollnhals.info>",
+	"maintainers": [{
+		"name": "Sebastian Vollnhals",
+		"email": "sebastian@vollnhals.info",
+		"web": "http://vollnhals.info/"
+	}],
+	"main": "./lib/scrapyard.js",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/yetzt/node-scrapyard.git"
+	},
+	"dependencies": {
+		"request": ">= 2.14",
+		"garage": ">= 0.0.5",
+		"cheerio": ">= 0.10.0",
+		"async": ">= 0.2.6",
+		"xml2js": ">= 0.2.6",
+		"colors": ">= 0.6.0"
+	},
+	"engines": {
+		"node": ">= 0.8.15"
+	}
+}

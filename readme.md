@@ -1,6 +1,6 @@
 # Scrapyard
 
-Scrapyard makes scraping websites easy. 
+Scrapyard makes scraping websites easy.
 
 ## Installation
 
