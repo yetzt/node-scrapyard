@@ -22,12 +22,35 @@ var scraper = new scrapyard({
 	connections: 10
 });
 
-scraper.scrape('http://example.org/','html', function(err,$){
+/* html */
+
+scraper.scrape('http://example.org/test.html','html', function(err, $){
 	if (err) {
 		console.error(err);
 	} else {
 		console.log($('h1').text());
 	}
 });
+
+/* xml */
+
+scraper.scrape('http://example.org/test.xml','xml', function(err, xml){
+	if (err) {
+		console.error(err);
+	} else {
+		console.log(xml);
+	}
+});
+
+/* json */
+
+scraper.scrape('http://example.org/test.json','json', function(err, json){
+	if (err) {
+		console.error(err);
+	} else {
+		console.log(json);
+	}
+});
+
 ````
 
