@@ -1,6 +1,6 @@
 {
 	"name": "scrapyard",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "Scraping websites made easy.",
 	"author": "Sebastian Vollnhals <sebastian@vollnhals.info>",
 	"maintainers": [{
@@ -14,9 +14,9 @@
 		"url": "https://github.com/yetzt/node-scrapyard.git"
 	},
 	"dependencies": {
-		"request": ">= 2.14",
+		"request": ">= 2.14.0",
 		"garage": ">= 0.0.5",
-		"cheerio": ">= 0.10.0",
+		"cheerio": ">= 0.12.2",
 		"async": ">= 0.2.6",
 		"xml2js": ">= 0.2.6",
 		"colors": ">= 0.6.0"
