@@ -10,7 +10,16 @@ You need [nodejs](https://nodejs.org/) with [npm](https://npmjs.org).
 npm install scrapyard
 ````
 
-## Example
+## Call
+
+scraper.scrape(url,type,[encoding],callback);
+
+* `url` is the HTTP GET URL
+* `type` is either html, xml or json
+* `encoding` (optional) is passed to `http.setEncoding()`, default is `binary`
+* `callback(err, data)` is the callback method
+
+## Examples
 
 ```` javascript
 var scrapyard = require("scrapyard");
@@ -24,7 +33,7 @@ var scraper = new scrapyard({
 
 /* html */
 
-scraper.scrape('http://example.org/test.html','html', function(err, $){
+scraper.scrape('http://example.org/test.html','html','binary',function(err, $){
 	if (err) {
 		console.error(err);
 	} else {
@@ -34,7 +43,7 @@ scraper.scrape('http://example.org/test.html','html', function(err, $){
 
 /* xml */
 
-scraper.scrape('http://example.org/test.xml','xml', function(err, xml){
+scraper.scrape('http://example.org/test.xml','xml','utf8',function(err, xml){
 	if (err) {
 		console.error(err);
 	} else {
@@ -44,7 +53,7 @@ scraper.scrape('http://example.org/test.xml','xml', function(err, xml){
 
 /* json */
 
-scraper.scrape('http://example.org/test.json','json', function(err, json){
+scraper.scrape('http://example.org/test.json','json',function(err, json){
 	if (err) {
 		console.error(err);
 	} else {
