@@ -51,10 +51,13 @@ scraper.scrape('http://example.org/test.html', function(err, $) {
 	}
 });
 
-scraper.scrape({url: 'http://example.org/test.html', type: 'html', encoding: 'binary', merhod: 'POST', form: {
-	key1: 'value1',
-	key2: 'value2'
-}}, function(err, $) {
+scraper.scrape({
+	url: 'http://example.org/test.html',
+	type: 'html',
+	encoding: 'binary',
+	merhod: 'POST',
+	form: {key1: 'value1', key2: 'value2'}
+}, function(err, $) {
 	if (err) {
 		console.error(err);
 	} else {
@@ -64,7 +67,11 @@ scraper.scrape({url: 'http://example.org/test.html', type: 'html', encoding: 'bi
 
 /* xml */
 
-scraper.scrape({url: 'http://example.org/test.xml', type: 'xml', encoding: 'utf8'}, function(err, xml) {
+scraper.scrape({
+	url: 'http://example.org/test.xml',
+	type: 'xml',
+	encoding: 'utf8'
+}, function(err, xml) {
 	if (err) {
 		console.error(err);
 	} else {
@@ -74,7 +81,10 @@ scraper.scrape({url: 'http://example.org/test.xml', type: 'xml', encoding: 'utf8
 
 /* json */
 
-scraper.scrape('http://example.org/test.json','json',function(err, json){
+scraper.scrape({
+	url: 'http://example.org/test.json',
+	type: 'json',
+}, function(err, json){
 	if (err) {
 		console.error(err);
 	} else {
