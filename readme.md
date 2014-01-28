@@ -12,12 +12,22 @@ npm install scrapyard
 
 ## Call
 
-scraper.scrape(url,type,[encoding],callback);
+`scraper.scrape(options, callback);`
 
-* `url` is the HTTP GET URL
-* `type` is either html, xml or json
-* `encoding` (optional) is passed to `http.setEncoding()`, default is `binary`
+or simply
+
+`scraper.scrape(url, callback);`
+
+The first argument can be either a `url` string or an `options` object. `url` is the only option required.
+
+* `url` is a string containing the HTTP URL
+* `type` is either `'html'`, `'xml'` or `'json'` (default: `'html'`)
+* `method` is the HTTP method (default: `'GET'`)
+* `form` is an object containing your formdata 
+* `encoding` is passed to `http.setEncoding()` (default: `'binary'`)
 * `callback(err, data)` is the callback method
+
+Although scrapyard has only been tested with these 6 options, you can try to set any option available for [request](https://github.com/mikeal/request#requestoptions-callback).
 
 ## Examples
 
@@ -33,7 +43,18 @@ var scraper = new scrapyard({
 
 /* html */
 
-scraper.scrape('http://example.org/test.html','html','binary',function(err, $){
+scraper.scrape('http://example.org/test.html', function(err, $) {
+	if (err) {
+		console.error(err);
+	} else {
+		console.log($('h1').text());
+	}
+});
+
+scraper.scrape({url: 'http://example.org/test.html', type: 'html', encoding: 'binary', merhod: 'POST', form: {
+	key1: 'value1',
+	key2: 'value2'
+}}, function(err, $) {
 	if (err) {
 		console.error(err);
 	} else {
@@ -43,7 +64,7 @@ scraper.scrape('http://example.org/test.html','html','binary',function(err, $){
 
 /* xml */
 
-scraper.scrape('http://example.org/test.xml','xml','utf8',function(err, xml){
+scraper.scrape({url: 'http://example.org/test.xml', type: 'xml', encoding: 'utf8'}, function(err, xml) {
 	if (err) {
 		console.error(err);
 	} else {
