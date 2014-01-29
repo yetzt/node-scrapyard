@@ -1,12 +1,16 @@
 {
 	"name": "scrapyard",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"description": "Scraping websites made easy.",
-	"author": "Sebastian Vollnhals <sebastian@vollnhals.info>",
+	"author": "Sebastian Vollnhals <sebastian@vollnhals.info> (http://vollnhals.info/)",
 	"maintainers": [{
 		"name": "Sebastian Vollnhals",
 		"email": "sebastian@vollnhals.info",
 		"web": "http://vollnhals.info/"
+	}],
+	"contributors": [{
+		"name": "irrelevation",
+		"web": "https://github.com/irrelevation"
 	}],
 	"main": "./lib/scrapyard.js",
 	"repository": {
