@@ -10,6 +10,24 @@ You need [nodejs](https://nodejs.org/) with [npm](https://npmjs.org).
 npm install scrapyard
 ````
 
+## Usage
+
+```` javascript
+var scrapyard = require("scrapyard");
+var scraper = new scrapyard({
+	debug: true,
+	retries: 5,
+	connections: 10,
+	cache: './storage',	
+	bestbefore: "5min"
+});
+````
+* `debug` set ist to true if you want some colorful information on your STDERR
+* `retries` number of times the scraper attempts to fetch the url before giving up. default: 5
+* `connections` number of concurrent connections a scraper will make. setting this too high could be considered as a ddos so be polite and keep this reasonable
+* `cache` is a folder, where scraped contents are cached. by default the cache will be witten to `./.cache` in your current working directory. set it to false if you don't want caching. 
+* `bestbefore` time your cache is valid, either an int of milliseconds or a string, valid forever when 0
+
 ## Call
 
 `scraper.scrape(options, callback);`

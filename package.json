@@ -1,17 +1,21 @@
 {
 	"name": "scrapyard",
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"description": "Scraping websites made easy.",
 	"author": "Sebastian Vollnhals <sebastian@vollnhals.info> (http://vollnhals.info/)",
-	"maintainers": [{
-		"name": "Sebastian Vollnhals",
-		"email": "sebastian@vollnhals.info",
-		"web": "http://vollnhals.info/"
-	}],
-	"contributors": [{
-		"name": "irrelevation",
-		"web": "https://github.com/irrelevation"
-	}],
+	"maintainers": [
+		{
+			"name": "Sebastian Vollnhals",
+			"email": "sebastian@vollnhals.info",
+			"web": "http://vollnhals.info/"
+		}
+	],
+	"contributors": [
+		{
+			"name": "irrelevation",
+			"web": "https://github.com/irrelevation"
+		}
+	],
 	"main": "./lib/scrapyard.js",
 	"repository": {
 		"type": "git",
@@ -19,11 +23,12 @@
 	},
 	"dependencies": {
 		"request": ">= 2.34.0",
-		"garage": ">= 0.0.5",
+		"garage": ">= 0.0.6",
 		"cheerio": ">= 0.16.0",
 		"async": ">= 0.8.0",
 		"xml2js": ">= 0.4.2",
-		"colors": ">= 0.6.2"
+		"colors": ">= 0.6.2",
+		"dur": ">= 0.0.1"
 	},
 	"engines": {
 		"node": ">= 0.10"
