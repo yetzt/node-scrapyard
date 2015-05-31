@@ -39,7 +39,7 @@ or simply
 The first argument can be either a `url` string or an `options` object. `url` is the only option required.
 
 * `url` is a string containing the HTTP URL
-* `type` is either `'html'`, `'xml'` or `'json'` (default: `'html'`)
+* `type` is either `'html'`, `'xml'`, `'json'` or `'raw'` (default: `'html'`)
 * `method` is the HTTP method (default: `'GET'`)
 * `form` is an object containing your formdata 
 * `encoding` is passed to `http.setEncoding()` (default: `'binary'`)
@@ -109,6 +109,19 @@ scraper.scrape({
 		console.error(err);
 	} else {
 		console.log(json);
+	}
+});
+
+/* raw */
+
+scraper.scrape({
+	url: 'http://example.org/test.bin',
+	type: 'raw',
+}, function(err, data){
+	if (err) {
+		console.error(err);
+	} else {
+		console.log(data);
 	}
 });
 
