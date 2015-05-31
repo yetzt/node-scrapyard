@@ -73,7 +73,7 @@ scraper.scrape({
 	url: 'http://example.org/test.html',
 	type: 'html',
 	encoding: 'binary',
-	merhod: 'POST',
+	method: 'POST',
 	form: {key1: 'value1', key2: 'value2'}
 }, function(err, $) {
 	// $ is produced by cheerio
