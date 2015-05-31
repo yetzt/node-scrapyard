@@ -1,6 +1,6 @@
 {
   "name": "scrapyard",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Scraping websites made easy.",
   "author": "Sebastian Vollnhals <sebastian@vollnhals.info> (http://vollnhals.info/)",
   "maintainers": [
