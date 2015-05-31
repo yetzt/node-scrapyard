@@ -22,7 +22,7 @@ var scraper = new scrapyard({
 	bestbefore: "5min"
 });
 ````
-* `debug` set ist to true if you want some colorful information on your STDERR
+* `debug` set ist to true if you want some colorful information on your STDERR (for backwards compatibilitiy, use the DEBUG on the environment instead).
 * `retries` number of times the scraper attempts to fetch the url before giving up. default: 5
 * `connections` number of concurrent connections a scraper will make. setting this too high could be considered as a ddos so be polite and keep this reasonable
 * `cache` is a folder, where scraped contents are cached. by default the cache will be witten to `./.cache` in your current working directory. set it to false if you don't want caching. 
