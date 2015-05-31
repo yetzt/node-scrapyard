@@ -76,6 +76,7 @@ scraper.scrape({
 	merhod: 'POST',
 	form: {key1: 'value1', key2: 'value2'}
 }, function(err, $) {
+	// $ is produced by cheerio
 	if (err) {
 		console.error(err);
 	} else {
@@ -90,6 +91,7 @@ scraper.scrape({
 	type: 'xml',
 	encoding: 'utf8'
 }, function(err, xml) {
+	// xml is produced by xml2js
 	if (err) {
 		console.error(err);
 	} else {
