@@ -1,36 +1,35 @@
 {
   "name": "scrapyard",
-  "version": "0.0.13",
-  "description": "Scraping websites made easy.",
-  "author": "Sebastian Vollnhals <sebastian@vollnhals.info> (http://vollnhals.info/)",
-  "maintainers": [
-    {
-      "name": "Sebastian Vollnhals",
-      "email": "sebastian@vollnhals.info",
-      "web": "http://vollnhals.info/"
-    }
-  ],
+  "version": "0.1.0",
+  "description": "Scrapyard makes scraping websites easy.",
+  "main": "scrapyard.js",
+  "dependencies": {
+    "async": "^1.5.0",
+    "cheerio": "^0.19.0",
+    "debug": "^2.2.0",
+    "dur": "^0.0.2",
+    "garage": "^0.0.6",
+    "request": "^2.67.0",
+    "xml2js": "^0.4.15"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yetzt/node-scrapyard.git"
+  },
+  "author": "Sebastian Vollnhals <node@yetzt.me> (https://yetzt.me/)",
   "contributors": [
     {
       "name": "irrelevation",
       "web": "https://github.com/irrelevation"
     }
   ],
-  "main": "./lib/scrapyard.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/yetzt/node-scrapyard.git"
+  "license": "Unlicense",
+  "bugs": {
+    "url": "https://github.com/yetzt/node-scrapyard/issues"
   },
-  "dependencies": {
-    "request": ">= 2.34.0",
-    "garage": ">= 0.0.6",
-    "cheerio": ">= 0.16.0",
-    "async": ">= 0.8.0",
-    "xml2js": ">= 0.4.2",
-    "dur": ">= 0.0.1",
-    "debug": "^2.2.0"
-  },
+  "homepage": "https://github.com/yetzt/node-scrapyard#readme",
   "engines": {
     "node": ">= 0.10"
   }
 }
+

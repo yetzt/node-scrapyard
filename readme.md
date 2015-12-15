@@ -1,10 +1,8 @@
 # Scrapyard
 
-Scrapyard makes scraping websites easy.
+Scrapyard makes scraping websites easy. I'ts a wrapper for most the things you need, comes with optional caching and retries, and opens as many connections as you like.
 
 ## Installation
-
-You need [nodejs](https://nodejs.org/) with [npm](https://npmjs.org).
 
 ````
 npm install scrapyard
@@ -22,7 +20,6 @@ var scraper = new scrapyard({
 	bestbefore: "5min"
 });
 ````
-* `debug` set ist to true if you want some colorful information on your STDERR (for backwards compatibilitiy, use the DEBUG on the environment instead).
 * `retries` number of times the scraper attempts to fetch the url before giving up. default: 5
 * `connections` number of concurrent connections a scraper will make. setting this too high could be considered as a ddos so be polite and keep this reasonable
 * `cache` is a folder, where scraped contents are cached. by default caching is off. 
@@ -30,11 +27,11 @@ var scraper = new scrapyard({
 
 ## Call
 
-`scraper.scrape(options, callback);`
+`scraper(options, callback);`
 
 or simply
 
-`scraper.scrape(url, callback);`
+`scraper(url, callback);`
 
 The first argument can be either a `url` string or an `options` object. `url` is the only option required.
 
@@ -49,7 +46,7 @@ Although scrapyard has only been tested with these 6 options, you can try to set
 
 ## Examples
 
-```` javascript
+``` javascript
 var scrapyard = require("scrapyard");
 var scraper = new scrapyard({
 	cache: './storage',	
@@ -59,71 +56,80 @@ var scraper = new scrapyard({
 	connections: 10
 });
 
-/* html */
-
-scraper.scrape('http://example.org/test.html', function(err, $) {
-	if (err) {
-		console.error(err);
-	} else {
-		console.log($('h1').text());
-	}
+// html, passes you a jquery-like `cheerio` object
+scraper('http://example.org/test.html', function(err, $) {
+	if (err) return console.error(err);
+	console.log($('h1').text());
 });
 
-scraper.scrape({
+// post something
+scraper({
 	url: 'http://example.org/test.html',
 	type: 'html',
 	encoding: 'binary',
 	method: 'POST',
 	form: {key1: 'value1', key2: 'value2'}
 }, function(err, $) {
-	// $ is produced by cheerio
-	if (err) {
-		console.error(err);
-	} else {
-		console.log($('h1').text());
-	}
+	if (err) return console.error(err);
+	console.log($('h1').text());
 });
 
-/* xml */
-
-scraper.scrape({
+// xml, converts xml to a javascript object with `xml2js`
+scraper({
 	url: 'http://example.org/test.xml',
 	type: 'xml',
 	encoding: 'utf8'
 }, function(err, xml) {
-	// xml is produced by xml2js
-	if (err) {
-		console.error(err);
-	} else {
-		console.log(xml);
-	}
+	if (err) return console.error(err);
+	console.log(xml);
 });
 
-/* json */
-
-scraper.scrape({
+// json, as delivered by `json.stringify`
+scraper({
 	url: 'http://example.org/test.json',
 	type: 'json',
 }, function(err, json){
-	if (err) {
-		console.error(err);
-	} else {
-		console.log(json);
-	}
+	if (err) return console.error(err);
+	console.log(json);
 });
 
-/* raw */
-
-scraper.scrape({
+// raw, just pass on whatever the webserver spits out
+scraper({
 	url: 'http://example.org/test.bin',
 	type: 'raw',
 }, function(err, data){
-	if (err) {
-		console.error(err);
-	} else {
-		console.log(data);
-	}
+	if (err) return console.error(err);
+	console.log(data);
 });
 
-````
+```
 
+## Tor
+
+It's possible to use scrapyard with tor using the `socks5-http-client` module:
+
+``` javascript
+var scrapyard = require("scrapyard");
+var scraper = scrapyard();
+var Agent = require('socks5-http-client/lib/Agent');
+
+scraper({
+	url: "http://freepress3xxs3hk.onion/about",
+	headers: {
+		"User-Agent": "Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.0"
+	},
+	agentClass: Agent,
+	agentOptions: {
+		socksHost: 'localhost',
+		socksPort: 9050
+	},
+	method: "GET",
+	type: "html",
+	encoding: "utf-8"
+}, function(err, $){
+	if (err) return console.log(err);
+	$(".content p").each(function(){
+		console.log($(this).text());
+	});
+});
+```
