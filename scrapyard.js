@@ -34,7 +34,7 @@ function scrapyard(config){
 	self.config.bestbefore = 0; 	
 	if (config.hasOwnProperty("bestbefore")) switch (typeof config.bestbefore) {
 		case "string": self.config.bestbefore = dur(config.bestbefore); break;
-		case "nummber": self.config.bestbefore = parseInt(config.bestbefore,10); break;
+		case "number": self.config.bestbefore = parseInt(config.bestbefore,10); break;
 	}
 
 	// cache
