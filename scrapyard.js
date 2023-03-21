@@ -4,7 +4,7 @@
 var path = require("path");
 
 // require npm modules
-var request = require("request");
+var request = require("needle");
 var cheerio = require("cheerio");
 var garage = require("garage");
 var xml2js = require("xml2js");
@@ -12,18 +12,20 @@ var debug = require("debug")("scrapyard");
 var async = require("async");
 var dur = require("dur");
 
+request.defaults({ parse_response: false });
+
 function scrapyard(config){
 	if (!(this instanceof scrapyard)) return new scrapyard(config);
-	
+
 	var self = this;
-	
+
 	// check config
 	if (!config) var config = {};
 	self.config = {};
 
 	// number of tries
 	self.config.retry = (config.hasOwnProperty('retry') && !isNaN(parseInt(config.retry,10))) ? parseInt(config.retry,10) : 5;
-	
+
 	// number of connections
 	self.config.connections = (config.hasOwnProperty('connections') && !isNaN(parseInt(config.connections,10))) ? parseInt(config.connections,10) : 5;
 
@@ -31,7 +33,7 @@ function scrapyard(config){
 	if (config.hasOwnProperty("timeout") && !config.hasOwnProperty("bestbefore")) config.bestbefore = config.timeout;
 
 	// best before
-	self.config.bestbefore = 0; 	
+	self.config.bestbefore = 0;
 	if (config.hasOwnProperty("bestbefore")) switch (typeof config.bestbefore) {
 		case "string": self.config.bestbefore = dur(config.bestbefore); break;
 		case "number": self.config.bestbefore = parseInt(config.bestbefore,10); break;
@@ -48,7 +50,7 @@ function scrapyard(config){
 	var bloogie = function(options, fn){ return self.scrape(options, fn); };
 	bloogie.scrape = function(options, fn){ return self.scrape(options, fn); };
 	return bloogie;
-	
+
 };
 
 // legacy param code
@@ -62,14 +64,14 @@ scrapyard.prototype.scrape_opts = function(arx){
 		method: "GET",
 		encoding: "binary"
 	};
-	
+
 	// walk through arguments
 	for (var i=0; i<arx.length; i++) {
 		switch (typeof arx[i]) {
-			case "function": 
-				fn = arx[i]; 
+			case "function":
+				fn = arx[i];
 			break;
-			case "string": 
+			case "string":
 				switch (arx[i].toLowerCase()) {
 					case "html": opts.type = "html"; break;
 					case "xml": opts.type = "xml"; break;
@@ -82,7 +84,7 @@ scrapyard.prototype.scrape_opts = function(arx){
 					default: if (i > 0) debug("[warn] unrecognized argument: %s", arx[i]); break;
 				}
 			break;
-			case "object": 
+			case "object":
 				opts.form = arx[i];
 			break;
 		};
@@ -116,6 +118,7 @@ scrapyard.prototype.scrape = function(options, fn) {
 			debug('[retr] %s', options.url);
 
 			// check iterator for maximum retries
+			console.log(options, err);
 			if (options.it === self.config.retry) return debug('[gvup] %s', options.url) || fn(new Error('scrape failed after maximum number of retries'));
 
 			// wait for 100ms and try again
@@ -132,22 +135,22 @@ scrapyard.prototype.scrape.prototype.scrape = scrapyard.prototype.scrape;
 scrapyard.prototype.parse = function(options, data, fn){
 	var self = this;
 	switch (options.type) {
-		case "html": 
+		case "html":
 			// create cheerio object from html result
 			try { data = cheerio.load(data); } catch(err) { return fn(err); };
 			fn(null, data);
 		break;
-		case "json": 
+		case "json":
 			// parse a json result
 			try { data = JSON.parse(data); } catch(err) { return fn(err); };
 			fn(null, data);
 		break;
-		case "xml": 
+		case "xml":
 			// parse an xml result
-			new xml2js.Parser().parseString(data.toString(), fn); 
+			new xml2js.Parser().parseString(data.toString(), fn);
 		break;
-		default: 
-			fn(null, data); 
+		default:
+			fn(null, data);
 		break;
 	}
 	return this;
@@ -164,7 +167,7 @@ scrapyard.prototype.fetch = function(options, fn) {
 				self.storage.get(options.storageid, function(err, data){
 					if (err) {
 						// get and save
-						request(options, function(err, response, data){
+						request(options.method||"GET", options.url, options, function(err, response, data){
 							if (err) return debug('[err!] %s - %s', err, options.url) || fn(err);
 							if (response.statusCode !== 200) return debug('[err!] Response Status Code %d - %s', response.statusCode, options.url) || fn(new Error("Response Status Code "+response.statusCode));
 							self.parse(options, data, fn);
@@ -179,7 +182,7 @@ scrapyard.prototype.fetch = function(options, fn) {
 				});
 			} else {
 				// get a new one
-				request(options, function(err, response, data){
+				request(options.method||"GET", options.url, options, function(err, response, data){
 					if (err) return debug('[err!] %s - %s', err, options.url) || fn(err);
 					if (response.statusCode !== 200) return debug('[err!] Response Status Code %d - %s', response.statusCode, options.url) || fn(new Error("Response Status Code "+response.statusCode));
 					self.parse(options, data, fn);
@@ -191,7 +194,7 @@ scrapyard.prototype.fetch = function(options, fn) {
 		});
 	} else {
 		// get one
-		request(options, function(err, response, data){
+		request(options.method||"GET", options.url, options, function(err, response, data){
 			if (err) return debug('[err!] %s - %s', err, options.url) || fn(err);
 			if (response.statusCode !== 200) return debug('[err!] Response Status Code %d - %s', response.statusCode, options.url) || fn(new Error("Response Status Code "+response.statusCode));
 			self.parse(options, data, fn);
