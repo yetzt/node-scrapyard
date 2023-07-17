@@ -6,7 +6,7 @@ var path = require("path");
 // require npm modules
 var request = require("needle");
 var cheerio = require("cheerio");
-var garage = require("garage");
+var garage = require("./lib/garage");
 var xml2js = require("xml2js");
 var debug = require("debug")("scrapyard");
 var async = require("async");
