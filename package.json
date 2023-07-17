@@ -1,6 +1,6 @@
 {
   "name": "scrapyard",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Scrapyard makes scraping websites easy.",
   "main": "scrapyard.js",
   "dependencies": {
@@ -8,7 +8,6 @@
     "cheerio": "^1.0.0-rc.12",
     "debug": "^4.3.4",
     "dur": "^0.0.3",
-    "garage": "^0.0.6",
     "needle": "^3.2.0",
     "xml2js": "^0.5.0"
   },
